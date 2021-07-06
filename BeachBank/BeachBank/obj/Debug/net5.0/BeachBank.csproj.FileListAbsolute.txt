@@ -1,0 +1,16 @@
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\bin\Debug\net5.0\BeachBank.exe
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\bin\Debug\net5.0\BeachBank.deps.json
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\bin\Debug\net5.0\BeachBank.runtimeconfig.json
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\bin\Debug\net5.0\BeachBank.runtimeconfig.dev.json
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\bin\Debug\net5.0\BeachBank.dll
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\bin\Debug\net5.0\ref\BeachBank.dll
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\bin\Debug\net5.0\BeachBank.pdb
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\obj\Debug\net5.0\BeachBank.csproj.AssemblyReference.cache
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\obj\Debug\net5.0\BeachBank.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\obj\Debug\net5.0\BeachBank.AssemblyInfoInputs.cache
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\obj\Debug\net5.0\BeachBank.AssemblyInfo.cs
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\obj\Debug\net5.0\BeachBank.csproj.CoreCompileInputs.cache
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\obj\Debug\net5.0\BeachBank.dll
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\obj\Debug\net5.0\ref\BeachBank.dll
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\obj\Debug\net5.0\BeachBank.pdb
+C:\Users\fcgomes2\source\repos\BeachBank\BeachBank\obj\Debug\net5.0\BeachBank.genruntimeconfig.cache
