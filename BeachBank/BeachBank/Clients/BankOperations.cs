@@ -6,44 +6,23 @@ namespace BeachBank.Clients
     {
         public void Deposit(double value, BankAccount informationForOperations)
         {
-            informationForOperations.Balance += value;
+            informationForOperations.UpdateBalance(value);
         }
 
-        public bool Transference(double value, BankAccount destinyBankAccount, BankAccount informationForOperations)
+        public void Withdraw(double value, BankAccount informationForOperations)
         {
-            if(informationForOperations.Balance < value)
-            {
-                Console.WriteLine("Insufficient funds");
-                return false;
-            }
-            informationForOperations.Balance -= value;
-            destinyBankAccount.Balance += value;
-            Console.WriteLine("Transfer Successful");
-            return true;
+            informationForOperations.UpdateBalance(-value);
         }
 
-        public bool Pay(double value, BankAccount informationForOperations)
+        public void Transference(double value, BankAccount destinyBankAccount, BankAccount informationForOperations)
         {
-            if (informationForOperations.Balance < value)
-            {
-                Console.WriteLine("Insufficient funds");
-                return false;
-            }
-            informationForOperations.Balance -= value;
-            Console.WriteLine("Payment Successful");
-            return true;
+            Withdraw(value, informationForOperations);
+            Deposit(value, destinyBankAccount);
         }
 
-        public bool Withdraw(double value, BankAccount informationForOperations)
+        public void Pay(double value, BankAccount informationForOperations)
         {
-            if (informationForOperations.Balance < value)
-            {
-                Console.WriteLine("Insufficient funds");
-                return false;
-            }
-            informationForOperations.Balance -= value;
-            Console.WriteLine("Withdraw Successful");
-            return true;
+            Withdraw(value, informationForOperations);
         }
 
     }

@@ -10,9 +10,9 @@ namespace BeachBank.Employees
     public abstract class Employee
     {
         public static int TotalEmployee { get; private set; }
-        public string Cpf { get; private set; }
+        public string Cpf { get; }
 
-        public string EmployeeName { get; private set; }
+        public string EmployeeName { get; }
 
         public double Salary { get; protected set; }
 

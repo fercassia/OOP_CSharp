@@ -5,7 +5,9 @@ namespace BeachBank.Clients
 {
     public class Client
     {
-        public string Cpf { get; private set; }
+        public string Cpf { get; }//Allow declare ONLY constructor, after that allow ONLY read;
+
+        public int NumberOfAccounts { get; private set; }
 
         public Client(string clientName, string clientCpf, ICpfValidator cpfValidator, List<BankAccount> bankAccounts = default)
         {
@@ -13,18 +15,22 @@ namespace BeachBank.Clients
             Cpf = cpfValidator.HandleInvalidCPFAttribution(clientCpf);
 
             BankAccount = bankAccounts is null ? new List<BankAccount>() : bankAccounts;
+
+            if (bankAccounts != null) 
+            {
+                bankAccounts.ForEach(_ => NumberOfAccounts++);
+            }
         }
 
-        //public ValidateCPF CPF { get; private set; }
-        //public string Cpf { get; private set; }
+        public List<BankAccount> BankAccount { get; }//Allow declare ONLY constructor, after that allow ONLY read;
 
-        public List<BankAccount> BankAccount { get; private set; }
-
-        public string HolderName {get; private set;}
+        public string HolderName {get; }//Allow declare ONLY constructor, after that allow ONLY read;
 
         public void AddAccount(BankAccount account) 
         {
             BankAccount.Add(account);
+
+            NumberOfAccounts++;
         }
     }
 }

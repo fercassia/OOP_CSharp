@@ -13,7 +13,7 @@ namespace BeachBank.Employees
         }
         public override void IncreaseSalary()
         {
-            Salary += (Salary*0.50);
+            Salary += (Salary * 0.50);
         }
 
         public override double SalaryBonus()

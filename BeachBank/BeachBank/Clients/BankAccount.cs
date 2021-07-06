@@ -1,70 +1,53 @@
-﻿namespace BeachBank.Clients
+﻿using BeachBank.BeachBankExceptions;
+using System;
+
+namespace BeachBank.Clients
 {
     public class BankAccount
     {
-        private int AgencyClient { get; set; }
+        public int AgencyClient { get; }//Allow declare ONLY constructor, after that allow ONLY read;
 
-        private int NumberAccountClient { get; set; }
-
-        private double BalanceClient = 10;
+        public int NumberAccountClient { get; }//Allow declare ONLY constructor, after that allow ONLY read;
 
         public static int TotalAccountCreated { get; private set; }//It will not permit the change the count of number of accounts created;
 
-        public int Agency//For agency_Client (private) -> client need put his agency correctly, but not change nothing and it need be different of 0;
+        public double Balance { get; private set; }
+
+        public void UpdateBalance(double valueToUpdate)
         {
-            get
+            try
             {
-                return AgencyClient;
+                var result = Balance + valueToUpdate;
+
+                if (result < 0) throw new FinancialOperationException("\nCan't do this operation... The balance can't be lower than 0.");
+
+                Balance = result;
+
+                Console.WriteLine("The Operation made with successful");
             }
-            set
+            catch (FinancialOperationException e)
             {
-                if (value <= 0)
-                {
-                    return;
-                }
-                AgencyClient = value;
+                Console.WriteLine($"The message is: {e.Message}");
+                Console.WriteLine($"\nThe StackTrace is:\n {e.StackTrace}");
             }
         }
-
-        public int Number//For number_Account_Client (private) -> client need put his agency correctly, but not change nothing and it need be different of 0;
-        {
-            get
-            {
-                return NumberAccountClient;
-            }
-            set
-            {
-                if (value <= 0)
-                {
-                    return;
-                }
-                NumberAccountClient = value;
-            }
-        }
-        public double Balance//For balance_Client (private) -> If client want put some value on this account, but not values negatives like -10;
-        {
-            get
-            {
-                return BalanceClient;
-            }
-            set
-            {
-                if (value < 0)
-                {
-                    return;
-                }
-
-                BalanceClient = value;
-            }
-        }
-
+        
         public BankAccount(int agency, int numberAccount) //Constructor
-        {
+        { 
+            try
+            {
+                if (agency <= 0) throw new ArgumentException($"\nThe argument of {nameof(agency)} is invalid (is 0 or lower than 0)");
+                if (numberAccount <= 0) throw new ArgumentException($"\nThe argument of {nameof(numberAccount)} is invalid (is 0 or lower than 0)");
 
-            Agency = agency;
-            Number = numberAccount;
+                AgencyClient = agency;
+                NumberAccountClient = numberAccount;
 
-            TotalAccountCreated++;//Count of accounts created;
-        }          
+                TotalAccountCreated++;//Count of accounts created;
+            }
+            catch(ArgumentException e)
+            {
+                Console.WriteLine($"The StackTrace is: {e.StackTrace}");        
+            }
+        }
     }
 }
