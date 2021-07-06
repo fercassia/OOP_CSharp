@@ -46,31 +46,31 @@ namespace BeachBank
         {
             var internalSystem = new InternalSystem();
 
-            var joao = new Director("Joao", "09640097659"); //caminho feliz senha
+            var joao = new Director("Joao", "09640097659"); //Happy way
             joao.IncreaseSalary();
             Console.WriteLine(joao.Salary);
             joao.Password = "joao41";
 
             internalSystem.Login(joao, "joao41");
 
-            var joaoAlves = new Director("Joao Alves", "09640097659"); //Erro na senha
+            var joaoAlves = new Director("Joao Alves", "09640097659"); //Wrong password
             joaoAlves.IncreaseSalary();
             Console.WriteLine(joaoAlves.Salary);
             joaoAlves.Password = "JAlvs60";
 
             internalSystem.Login(joao, "joao41");
 
-            var xande = new Partner(); // caminho feliz senha
+            var xande = new Partner(); // Happy way
             xande.Password = "4190@";
 
             internalSystem.Login(xande, "4190@");
 
-            var camila = new Partner(); //erro na senha
+            var camila = new Partner(); //Wrong password
             camila.Password = "Camilao1";
 
             internalSystem.Login(camila, "Camila");
 
-            var fernanda = new Director("fernanda", "09640097650"); // erro no cpf
+            var fernanda = new Director("fernanda", "09640097650"); // Wrong cpf
             fernanda.SalaryBonus();
             Console.WriteLine(fernanda.Salary);
             fernanda.Password = "fehfe12";
