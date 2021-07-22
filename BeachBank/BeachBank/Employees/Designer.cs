@@ -8,17 +8,20 @@ namespace BeachBank.Employees
 {
     public class Designer : Employee
     {
-        public Designer(string employeeName, string employeeCpf) : base(employeeName, employeeCpf, 4150.00)
-        {
-        }
+        public double IncreaseSalaryFactor { get; set; }
+
+        public double SalaryBonusFactor { get; set; }
+
+        public Designer(string name, string cpf, double salary) : base(name, cpf, salary) { }
+
         public override void IncreaseSalary()
         {
-            Salary += (Salary * 0.35);
+            Salary *= IncreaseSalaryFactor;
         }
 
         public override double SalaryBonus()
         {
-            return Salary *= 0.35;
+            return Salary * SalaryBonusFactor;
         }
     }
 }

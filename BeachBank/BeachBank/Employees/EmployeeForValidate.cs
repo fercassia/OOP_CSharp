@@ -1,13 +1,8 @@
 ﻿using BeachBank.Systems;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BeachBank.Employees
 {
-    public abstract class EmployeeForValidate : Employee, ISystemValidate //Only manager, director and Partner have accesse to Intern System
+    public abstract class EmployeeForValidate : Employee, ISystemValidate //Only manager, director and Partner have access to Intern System
     {
         public string Password { get; set; }
 

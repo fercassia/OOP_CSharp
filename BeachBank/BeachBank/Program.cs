@@ -10,30 +10,28 @@ namespace BeachBank
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            //CustumerMovement();
-            EmplyoeeIniciation();
-            
+            EmployeeIniciation();
         }
 
-        public static void CustumerMovement()
+        public static void CustomerMovement()
         {
-            var bankAcocunts = new List<BankAccount>
+            var bankAccounts = new List<BankAccount>
             {
                 new BankAccount(1, 1),
                 new BankAccount(2, 2)
             };
 
-            var cpfValitation = new CpfValidatorService();
+            var cpfValidatorService = new CpfValidatorService();
 
-            var client = new Client("Fernanda", "80469611677", cpfValitation, bankAcocunts);
+            var client = new Client("Fernanda", "80469611677", cpfValidatorService, bankAccounts);
             client.AddAccount(new BankAccount(3, 3));
 
-            var operation = new BankOperations();
+            var bankOperation = new BankOperation();
 
-            operation.Deposit(500, client.BankAccount[1]);
-            operation.Transference(5, client.BankAccount[2], client.BankAccount[0]);
+            bankOperation.Deposit(500, client.BankAccount[1]);
+            bankOperation.Transfer(5, client.BankAccount[2], client.BankAccount[0]);
 
             Console.WriteLine(client.BankAccount[1].Balance);
             Console.WriteLine(client.BankAccount[2].Balance);
@@ -42,41 +40,63 @@ namespace BeachBank
             Console.WriteLine(client.Cpf);
             Console.WriteLine(client.HolderName);
         }
-        public static void EmplyoeeIniciation()
+        public static void EmployeeIniciation()
         {
-            var internalSystem = new InternalSystem();
+            Console.Write("\n|||||||||||||||||||||||||||||||||||| Creating the users |||||||||||||||||||||||||||||||||||||\n");
+            var joao = new Director("Caterine Zeta Jones", "09640097659", 8000.00);
+            var joaoAlves = new Director("Almeirinda Silvestre", "09640097659", 9500.00);
+            var fernanda = new Director("Clarissa Casale Doimo", "09640097650", 12000.00);
+            var xande = new Partner();
+            var camila = new Partner();            
 
-            var joao = new Director("Joao", "09640097659"); //Happy way
-            joao.IncreaseSalary();
-            Console.WriteLine(joao.Salary);
-            joao.Password = "joao41";
+            List<ISystemValidate> users = new List<ISystemValidate>
+            {
+                joao,
+                joaoAlves,
+                fernanda,
+                xande,
+                camila
+            };
 
-            internalSystem.Login(joao, "joao41");
+            Console.Write("\n\n|||||||||||||||||||||||||||||||| Showing everyone's salaries ||||||||||||||||||||||||||||||||");
+            ShowingEveryonesSalaries(users);
+            Console.WriteLine();
 
-            var joaoAlves = new Director("Joao Alves", "09640097659"); //Wrong password
-            joaoAlves.IncreaseSalary();
-            Console.WriteLine(joaoAlves.Salary);
-            joaoAlves.Password = "JAlvs60";
+            Console.Write("\n\n|||||||||||||||||||||||||||||||||||| Logging In The Users |||||||||||||||||||||||||||||||||||");
+            LoggingInTheUsers(users);
+            Console.WriteLine();
+        }
 
-            internalSystem.Login(joao, "joao41");
+        private static void ShowingEveryonesSalaries(List<ISystemValidate> users)
+        {
+            foreach (ISystemValidate user in users)
+            {
+                if (user.GetType().ToString().Contains("Employee"))
+                {
+                    EmployeeForValidate employee = (EmployeeForValidate)user;
+                    employee.IncreaseSalary();
+                    Console.Write($"\n{employee.EmployeeName}'s salary is: {employee.Salary} and his/her salary bonus is: {employee.SalaryBonus()}");
+                }
+            }
+        }
 
-            var xande = new Partner(); // Happy way
-            xande.Password = "4190@";
-
-            internalSystem.Login(xande, "4190@");
-
-            var camila = new Partner(); //Wrong password
-            camila.Password = "Camilao1";
-
-            internalSystem.Login(camila, "Camila");
-
-            var fernanda = new Director("fernanda", "09640097650"); // Wrong cpf
-            fernanda.SalaryBonus();
-            Console.WriteLine(fernanda.Salary);
-            fernanda.Password = "fehfe12";
-
-            internalSystem.Login(fernanda, "fehfe12");
-
+        private static void LoggingInTheUsers(List<ISystemValidate> users)
+        {
+            var authenticator = new Authenticator();
+            foreach (ISystemValidate user in users)
+            {
+                if (user.GetType().ToString().Contains("Employee"))
+                {
+                    EmployeeForValidate employee = (EmployeeForValidate)user;
+                    employee.Password = "teste";
+                }
+                else
+                {
+                    Partner partner = (Partner)user;
+                    partner.Password = "teste";
+                }
+                authenticator.Login(user, "teste");
+            }
         }
     }
 }
