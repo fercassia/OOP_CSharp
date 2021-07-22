@@ -21,7 +21,16 @@ namespace BeachBank.Employees
             var cpfValidation = new CpfValidatorService();
 
             EmployeeName = employeeName;
-            Cpf = cpfValidation.HandleInvalidCPFAttribution(employeeCpf);
+            
+            try
+            {
+                Cpf = cpfValidation.HandleInvalidCPFAttribution(employeeCpf);
+            }
+            catch(InvalidOperationException e)
+            {
+                Console.WriteLine($"\n\t{e.Message} - Employee name: {employeeName}\n");
+            }
+            
             Salary = employeeSalary;
 
             TotalEmployee++;

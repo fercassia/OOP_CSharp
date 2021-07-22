@@ -4,75 +4,65 @@ namespace BeachBank.ValidateInformation
 {
     public class CpfValidatorService : ICpfValidator
     {
+        private const int CPF_LENGTH = 11;
+
         public string HandleInvalidCPFAttribution(string cpf)
         {
-            var exception = new InvalidOperationException("The provided CPF is invalid");
+            var exception = new InvalidOperationException("ERROR!!! The provided CPF is invalid.");
 
-            var numbersCPF = new int[11];
+            int[] cpfAsIntArray = ConvertCpfToIntArray(cpf);
 
-            if(cpf.Equals("00000000000") || !cpf.Length.Equals(11))
-            {
-                Console.WriteLine("CPF invalid");
-                throw exception;
-            }
-            //Adding CPF to a array to simplify the verification;
-            for(int countCpf = 0; countCpf < 11; countCpf++)
-            {
-                numbersCPF[countCpf] = int.Parse(cpf[countCpf].ToString());
-            }
+            if (!ValidateLength(cpf)) throw exception;            
+            if (!ValidateCpfNineFirstDigits(cpfAsIntArray)) throw exception;
+            if (!ValidateRemainingRules(cpfAsIntArray)) throw exception;
 
-            // Calculate the 2 lasts cpf digits;
-            //Verifying the first last cpf digit;
+            return cpf;
+        }
 
+        private static bool ValidateLength(string cpf)
+        {
+            return (!(cpf.Equals("00000000000") || !cpf.Length.Equals(CPF_LENGTH)));
+        }
+
+        private static bool ValidateRemainingRules(int[] cpfAsIntArray)
+        {
+            int sum = 0;
+            int result;
+            for (int aux = 0; aux < 10; aux++)
+                sum += (CPF_LENGTH - aux) * cpfAsIntArray[aux];
+
+            result = sum % CPF_LENGTH;
+            
+            if ((result < 2) && (!cpfAsIntArray[10].Equals(0))) return false;
+            
+            if (!cpfAsIntArray[10].Equals(CPF_LENGTH - result)) return false;
+
+            return true;
+        }
+
+        private static bool ValidateCpfNineFirstDigits(int[] cpfAsIntArray)
+        {
             var sum = 0;
+            for (int aux = 0; aux < 9; aux++)
+                sum += (10 - aux) * cpfAsIntArray[aux];
 
-            for(int aux = 0; aux < 9; aux++) //adding of 9 first cpf numbers after multiply each numbers with 10 until 2 (deacreasing);
+            var result = sum % CPF_LENGTH;
+            
+            if ((result < 2) && (!cpfAsIntArray[9].Equals(0))) return false;
+            
+            if (!cpfAsIntArray[9].Equals(CPF_LENGTH - result)) return false;
+
+            return true;
+        }
+
+        private static int[] ConvertCpfToIntArray(string cpf)
+        {
+            var cpfAsIntArray = new int[CPF_LENGTH];
+            for (int x = 0; x < CPF_LENGTH; x++)
             {
-                sum += (10 - aux) * numbersCPF[aux];
+                cpfAsIntArray[x] = int.Parse(cpf[x].ToString());
             }
-
-            var result = sum % 11;//Verifying the remainder of 11;
-
-            if(result < 2)
-            {
-                if (!numbersCPF[9].Equals(0))
-                {
-                    Console.WriteLine("CPF invalid");
-                    throw exception;
-                }
-            }
-            else if(!numbersCPF[9].Equals(11 - result))
-            {
-                Console.WriteLine("CPF invalid");
-                throw exception;
-            }
-
-            //Verifying the first last cpf digit
-
-            sum = 0;
-
-            for(int aux = 0; aux < 10; aux++)//adding of 10 first cpf numbers after multiply each numbers with 11 until 2 (deacreasing); 
-            {
-                sum += (11 - aux) * numbersCPF[aux];
-            }
-
-            result = sum % 11; //Verifying the remainder of 11
-
-            if(result < 2)
-            {
-                if (!numbersCPF[10].Equals(0))
-                {
-                    Console.WriteLine("CPF invalid");
-                    throw exception;
-                }
-            }
-            else if (!numbersCPF[10].Equals(11 - result))
-            {
-                Console.WriteLine("CPF invalid");
-                throw exception;
-            }
-
-            return cpf;//The compiller will return the cpf
+            return cpfAsIntArray;
         }
     }
 }
